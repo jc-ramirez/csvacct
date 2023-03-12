@@ -1,0 +1,9 @@
+#ignore ALL .csv files
+*.csv
+*.CSV
+*.cSV
+*.CsV
+*.CSv
+*.csV
+*.cSv
+*.Csv

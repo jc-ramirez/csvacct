@@ -5,24 +5,18 @@ import string
 import os 
 import sys
 
-# from openpyxl import Workbook
-# from openpyxl import load_workbook
-
-#path = "9027.xlsx"
-
-#def open_workbook(path):
-  #wb = load_workbook(path)
-  #print(f"Worksheet names: {wb.sheetnames}")
-  #sheet = wb.active
-  #print(sheet)
 
 l_ofmths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-def find_csv(str):
+def find_csv(l):
   arr = []
-  for file in os.listdir(str):
-    if file.endswith(".csv"):
-      arr.append(file.split(".")[0].strip())
+  for file in os.listdir():
+    if file.lower().endswith(".csv"):
+      for b in l:
+        if b in file.lower():
+          arr.append(file.split(".")[0].strip())
+
+  return arr
 
 def findthis(str):
   arr = []
@@ -33,7 +27,12 @@ def findthis(str):
   return arr
 
 def createthis(name):
-  pass
+  try:
+    rf = open(name , "x")
+    rf.close()
+    print("Created repeatable")
+  except:
+    pass
 
 def list_addr(str):
   arr = []
