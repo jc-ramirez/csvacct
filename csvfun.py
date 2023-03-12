@@ -3,6 +3,7 @@ import csv
 import datetime
 import string
 import os 
+import sys
 
 # from openpyxl import Workbook
 # from openpyxl import load_workbook
@@ -14,13 +15,25 @@ import os
   #print(f"Worksheet names: {wb.sheetnames}")
   #sheet = wb.active
   #print(sheet)
+
+l_ofmths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
 def find_csv(str):
   arr = []
   for file in os.listdir(str):
     if file.endswith(".csv"):
       arr.append(file.split(".")[0].strip())
 
+def findthis(str):
+  arr = []
+  for file in os.listdir():
+    if file.find(str):
+      arr.append(file)
+
   return arr
+
+def createthis(name):
+  pass
 
 def list_addr(str):
   arr = []
@@ -30,25 +43,15 @@ def list_addr(str):
 
   return arr
   
-def firstmonth(dir, mth):
-  if mth in find_csv(dir):
-    return False
-  else:
-    return True
+def firstmonth(dir, mth = l_ofmths):
+  for m in l_ofmths:
+    if mth in find_csv(dir):
+      return False
+    else:
+      return True
   
 
-def ld_rents(path, sheet):
-  #wb = load_workbook(path)
-  ws = wb[sheet]
-  mth = datetime.datetime.now().strftime("%b")
-  source = ws
-  target = wb.copy_worksheet(source)
-  target.title = mth
-  #wss = wb["Rents Copy"]
-  #print(wss.title)
-  #wss.title = mth
-  #wb["Feb"] = wb.copy_worksheet(ws)
-  print(f"Worksheet names: {wb.sheetnames}")
+
 
 
 def coord_conv(str):
@@ -86,7 +89,7 @@ def cp_values(sheet_name, cell_range):
 
     for e in d:
       print(f"{e} = {d[e]}")
-	
+  
   except:
     print(f"'{sheet_name}' not found. Quitting.")
     return
@@ -112,15 +115,4 @@ def wr_values(dict, sheet_name, cell_range):
     print(f"'Couldn't write.")
     return
 
-  return d
-
-def create_workbook(path):
-  wb = Workbook()
-  mth = datetime.datetime.now().strftime("%b")
-  #dttm = datetime.datetime.strptime(mylist[i], "%m/%d/%Y")
-  sheet = wb.active
-  sheet.cell(row=1,column=1).value = mth
-  wb.save(path)
-
-
-
+  return
