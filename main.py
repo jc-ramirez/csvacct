@@ -40,17 +40,31 @@ if __name__ == "__main__":
   suffix = address.split("/")[-1]
 
   if os.path.exists(address):
-    #search for redundant step files
+    #search for key term file
     try:
-      rf = createthis(f"{address}/{suffix}repeatable.text")
+      rf = createthis(f"{address}/{suffix}key_terms.text")
     except:
       pass
 
-    rf = open(f"{address}/{suffix}repeatable.text", "r")
+    if os.path.exists(f"{address}/{suffix}key_terms.text"):
+      term_path = f"{address}/{suffix}key_terms.text"
+    else:
+      raise Exception("key_term.text wasn't created")
+    rf = open(term_path)
     bank = rf.readline()
     rf.close()
     if len(bank) < 1:
-      bank = find_csv(l_banks)
+      banks = find_bank_csv(l_banks)
+      print("Encontre historia de transaciones para los proximos bancos.\n")
+      for idx, bank in enumerate(banks):
+        print(f"{idx + 1}. {banks}")
+      x = input(f"Entre el numero de el banco para associarlo con esta casa.\n")
+      if int(x) <= len(bank):
+        bank = banks[int(x) - 1]
+        enter(bank, term_path)
+
+    csv_s = find_csv(bank)
+    print(csv_s)
     #   bank = input("No hay un banco associado con esta direccion, si te gustaria associar uno entre el nombre ahora, por favor.\n")
     #   verify = input(f"Entraste '{bank}', esta correcto?\n")
     #   while verify.lower() == "no":

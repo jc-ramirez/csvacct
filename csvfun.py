@@ -8,13 +8,23 @@ import sys
 
 l_ofmths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-def find_csv(l):
+def find_bank_csv(l):
   arr = []
   for file in os.listdir():
     if file.lower().endswith(".csv"):
       for b in l:
         if b in file.lower():
-          arr.append(file.split(".")[0].strip())
+          arr.append(b.capitalize())
+
+  return arr
+
+
+def find_csv(str):
+  arr = []
+  for file in os.listdir():
+    if file.lower().endswith(".csv"):
+      if str in file:
+        arr.append(file)
 
   return arr
 
@@ -30,9 +40,19 @@ def createthis(name):
   try:
     rf = open(name , "x")
     rf.close()
-    print("Created repeatable")
+    print("Created {}")
   except:
     pass
+
+  return
+
+def enter(str, text):
+  rf = open(text, "a")
+  rf.write(str)
+  rf.close()
+
+  return
+
 
 def list_addr(str):
   arr = []
